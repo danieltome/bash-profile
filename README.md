@@ -41,3 +41,20 @@ Toggling finder's hidden files, cleaning up DS_Store files
 ### Web Development
 
 Apache and the usuals.
+
+
+# How to use this?
+
+* Just edit the PATHS with what you require.
+* Then copy the bash_profile file in your home directory as .bash_profile
+
+```
+cp bash_profile ~/.bash_profile
+```
+
+If you already have a terminal open run this: 
+
+```
+source ~/.bash_profile
+```
+
