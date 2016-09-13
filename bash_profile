@@ -11,49 +11,55 @@
 #  6.   Networking
 #  7.   System Operations & Information
 #  8.   Web Development
-#  9.   Reminders & Notes
 #
 #  ---------------------------------------------------------------------------
-
+ 
 #   -------------------------------
 #   1.  ENVIRONMENT CONFIGURATION
 #   -------------------------------
-
+ 
 #   Change Prompt
 #   ------------------------------------------------------------
     export PS1="________________________________________________________________________________\n| \w @ \h (\u) \n| => "
     export PS2="| => "
-
+ 
 #   Set Paths
 #   ------------------------------------------------------------
-    export PATH="$PATH:/usr/local/bin/"
-    export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 
+
+
+export ANDROID_HOME=/Users/daniel.tome/Library/Android/sdk
+export ANDROID_PATH=/Users/daniel.tome/Library/Android/sdk
+export ANDROID_SDK=/Users/daniel.tome/Library/Android/sdk
+export ANT_HOME=/Users/daniel.tome/apache-ant-1.9.4
+export DROPBOX_BIN=/Users/daniel.tome/Dropbox/bin
+export GITINSPECTOR_BIN=/Users/daniel.tome/Applications/gitinspector
+export DRUSH_PHP=/usr/local/php5/bin
+
+export PATH=$DRUSH_PHP:${PATH}:/usr/local/sbin:$DROPBOX_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANT_HOME/bin:/usr/local/mysql/bin:/usr/local/bin:$GITINSPECTOR_BIN:/Users/daniel.tome/Downloads/emsdk_portable/1.35.0:/usr/local/bin
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+
+ 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
-    export EDITOR=/usr/bin/nano
-
+    export EDITOR=/usr/bin/vi
+ 
 #   Set default blocksize for ls, df, du
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
 #   ------------------------------------------------------------
     export BLOCKSIZE=1k
-
-#   Add color to terminal
-#   (this is all commented out as I use Mac Terminal Profiles)
-#   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
-#   ------------------------------------------------------------
-#   export CLICOLOR=1
-#   export LSCOLORS=ExFxBxDxCxegedabagacad
-
-
+ 
+ 
 #   -----------------------------
 #   2.  MAKE TERMINAL BETTER
 #   -----------------------------
-
+ 
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
+alias ls='ls -FGlAhp'                       # Preferred 'ls' implementation
 alias less='less -FSRXc'                    # Preferred 'less' implementation
 cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
@@ -70,39 +76,38 @@ alias c='clear'                             # c:            Clear terminal displ
 alias which='type -all'                     # which:        Find executables
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
 alias show_options='shopt'                  # Show_options: display bash options settings
-alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
-alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
 alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
-
+ 
 #   lr:  Full Recursive Directory Listing
 #   ------------------------------------------
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
-
+ 
 #   mans:   Search manpage given in agument '1' for term given in argument '2' (case insensitive)
 #           displays paginated result with colored search terms and two lines surrounding each hit.             Example: mans mplayer codec
 #   --------------------------------------------------------------------
     mans () {
         man $1 | grep -iC2 --color=always $2 | less
     }
-
+ 
 #   showa: to remind yourself of an alias (given some part of it)
 #   ------------------------------------------------------------
     showa () { /usr/bin/grep --color=always -i -a1 $@ ~/Library/init/bash/aliases.bash | grep -v '^\s*$' | less -FSRXc ; }
-
-
+ 
+ 
 #   -------------------------------
 #   3.  FILE AND FOLDER MANAGEMENT
 #   -------------------------------
-
+ 
 zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
 alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
 alias make1mb='mkfile 1m ./1MB.dat'         # make1mb:      Creates a file of 1mb size (all zeros)
 alias make5mb='mkfile 5m ./5MB.dat'         # make5mb:      Creates a file of 5mb size (all zeros)
-alias make10mb='mkfile 10m ./10MB.dat'      # make10mb:     Creates a file of 10mb size (all zeros)
-
+alias make100mb='mkfile 100m ./100MB.dat'   # make100mb:    Creates a file of 100mb size (all zeros)
+ 
 #   cdf:  'Cd's to frontmost window of MacOS Finder
 #   ------------------------------------------------------
     cdf () {
@@ -120,7 +125,7 @@ EOT
         echo "cd to \"$currFolderPath\""
         cd "$currFolderPath"
     }
-
+ 
 #   extract:  Extract most know archives with one command
 #   ---------------------------------------------------------
     extract () {
@@ -143,26 +148,26 @@ EOT
              echo "'$1' is not a valid file"
          fi
     }
-
-
+ 
+ 
 #   ---------------------------
 #   4.  SEARCHING
 #   ---------------------------
-
+ 
 alias qfind="find . -name "                 # qfind:    Quickly search for file
 ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
 ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
-
+ 
 #   spotlight: Search for a file using MacOS Spotlight's metadata
 #   -----------------------------------------------------------
     spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
-
-
+ 
+ 
 #   ---------------------------
 #   5.  PROCESS MANAGEMENT
 #   ---------------------------
-
+ 
 #   findPid: find out the pid of a specified process
 #   -----------------------------------------------------
 #       Note that the command name can be specified via a regex
@@ -170,47 +175,43 @@ ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name end
 #       Without the 'sudo' it will only find processes of the current user
 #   -----------------------------------------------------
     findPid () { lsof -t -c "$@" ; }
-
+ 
 #   memHogsTop, memHogsPs:  Find memory hogs
 #   -----------------------------------------------------
     alias memHogsTop='top -l 1 -o rsize | head -20'
     alias memHogsPs='ps wwaxm -o pid,stat,vsize,rss,time,command | head -10'
-
+ 
 #   cpuHogs:  Find CPU hogs
 #   -----------------------------------------------------
     alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
-
-#   topForever:  Continual 'top' listing (every 10 seconds)
-#   -----------------------------------------------------
-    alias topForever='top -l 9999999 -s 10 -o cpu'
-
+ 
+ 
 #   ttop:  Recommended 'top' invocation to minimize resources
 #   ------------------------------------------------------------
 #       Taken from this macosxhints article
 #       http://www.macosxhints.com/article.php?story=20060816123853639
 #   ------------------------------------------------------------
     alias ttop="top -R -F -s 10 -o rsize"
-
+ 
 #   my_ps: List processes owned by my user:
 #   ------------------------------------------------------------
     my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
-
-
+ 
+ 
 #   ---------------------------
 #   6.  NETWORKING
 #   ---------------------------
-
-alias myip='curl ip.appspot.com'                    # myip:         Public facing IP Address
+ 
+alias myip='dig TXT +short o-o.myaddr.l.google.com @ns1.google.com' # myip:  Public facing IP 
 alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
 alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
 alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
 alias lsockU='sudo /usr/sbin/lsof -nP | grep UDP'   # lsockU:       Display only open UDP sockets
 alias lsockT='sudo /usr/sbin/lsof -nP | grep TCP'   # lsockT:       Display only open TCP sockets
 alias ipInfo0='ipconfig getpacket en0'              # ipInfo0:      Get info on connections for en0
-alias ipInfo1='ipconfig getpacket en1'              # ipInfo1:      Get info on connections for en1
 alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listening connections
 alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rules inc/ blocked IPs
-
+ 
 #   ii:  display useful host related informaton
 #   -------------------------------------------------------------------
     ii() {
@@ -224,82 +225,43 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
         #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
         echo
     }
-
-
+ 
+ 
 #   ---------------------------------------
 #   7.  SYSTEMS OPERATIONS & INFORMATION
 #   ---------------------------------------
-
-alias mountReadWrite='/sbin/mount -uw /'    # mountReadWrite:   For use when booted into single-user
-
+ 
+ 
 #   cleanupDS:  Recursively delete .DS_Store files
 #   -------------------------------------------------------------------
     alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
-
+ 
 #   finderShowHidden:   Show hidden files in Finder
 #   finderHideHidden:   Hide hidden files in Finder
 #   -------------------------------------------------------------------
-    alias finderShowHidden='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-    alias finderHideHidden='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-
-#   cleanupLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
-#   -----------------------------------------------------------------------------------
-    alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
-
+    alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE'
+    alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE'
+  
 #    screensaverDesktop: Run a screensaver on the Desktop
 #   -----------------------------------------------------------------------------------
     alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background'
-
+ 
 #   ---------------------------------------
 #   8.  WEB DEVELOPMENT
 #   ---------------------------------------
-
+ 
 alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit httpd.conf
+alias apacheLog='tail /var/log/httpd/error_log'         # apacheLog:        Tails HTTP error 
 alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
+alias apacheTest='sudo apachectl -t'                    # apacheTest:       Check Apache Syntax
 alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
-alias herr='tail /var/log/httpd/error_log'              # herr:             Tails HTTP error logs
-alias apacheLogs="less +F /var/log/apache2/error_log"   # Apachelogs:   Shows apache error logs
-httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
 
+alias downloadSite='wget --mirror --convert-links --backup-converted --adjust-extension ' # download a site for offline reading. downloadSite http://somesite.com
+
+httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
+ 
 #   httpDebug:  Download a web page and show info on what took time
 #   -------------------------------------------------------------------
     httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
-
-#   ---------------------------------------
-#   9.  MISC
-#   ---------------------------------------
-
-#   This setting is for the new UTF-8 terminal support
-    export LC_CTYPE=en_US.UTF-8
-    export LC_ALL=en_US.UTF-8
-
-
-#   ---------------------------------------
-#   10.  REMINDERS & NOTES
-#   ---------------------------------------
-
-#   remove_disk: spin down unneeded disk
-#   ---------------------------------------
-#   diskutil eject /dev/disk1s3
-
-#   to change the password on an encrypted disk image:
-#   ---------------------------------------
-#   hdiutil chpass /path/to/the/diskimage
-
-#   to mount a read-only disk image as read-write:
-#   ---------------------------------------
-#   hdiutil attach example.dmg -shadow /tmp/example.shadow -noverify
-
-#   mounting a removable drive (of type msdos or hfs)
-#   ---------------------------------------
-#   mkdir /Volumes/Foo
-#   ls /dev/disk*   to find out the device to use in the mount command)
-#   mount -t msdos /dev/disk1s1 /Volumes/Foo
-#   mount -t hfs /dev/disk1s1 /Volumes/Foo
-
-#   to create a file of a given size: /usr/sbin/mkfile or /usr/bin/hdiutil
-#   ---------------------------------------
-#   e.g.: mkfile 10m 10MB.dat
-#   e.g.: hdiutil create -size 10m 10MB.dmg
-#   the above create files that are almost all zeros - if random bytes are desired
-#   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
+ 
+ 
