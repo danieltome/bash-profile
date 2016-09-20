@@ -26,17 +26,17 @@
 #   Set Paths
 #   ------------------------------------------------------------
 
-
-
 export ANDROID_HOME=/Users/daniel.tome/Library/Android/sdk
-export ANDROID_PATH=/Users/daniel.tome/Library/Android/sdk
-export ANDROID_SDK=/Users/daniel.tome/Library/Android/sdk
+export ANDROID_PATH=$ANDROID_HOME
+export ANDROID_SDK=$ANDROID_HOME
 export ANT_HOME=/Users/daniel.tome/apache-ant-1.9.4
 export DROPBOX_BIN=/Users/daniel.tome/Dropbox/bin
 export GITINSPECTOR_BIN=/Users/daniel.tome/Applications/gitinspector
 export DRUSH_PHP=/usr/local/php5/bin
 
-export PATH=$DRUSH_PHP:${PATH}:/usr/local/sbin:$DROPBOX_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANT_HOME/bin:/usr/local/mysql/bin:/usr/local/bin:$GITINSPECTOR_BIN:/Users/daniel.tome/Downloads/emsdk_portable/1.35.0:/usr/local/bin
+# /Users/daniel.tome/Downloads/emsdk_portable/1.35.0
+
+export PATH=$DRUSH_PHP:${PATH}:/usr/local/sbin:$DROPBOX_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANT_HOME/bin:/usr/local/mysql/bin:/usr/local/bin:$GITINSPECTOR_BIN:
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -61,7 +61,7 @@ alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias ls='ls -FGlAhp'                       # Preferred 'ls' implementation
 alias less='less -FSRXc'                    # Preferred 'less' implementation
-cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
+cd() { builtin cd "$@"; ls; }               # Always list directory contents upon 'cd'
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                           # Go back 1 directory level
 alias ...='cd ../../'                       # Go back 2 directory levels
