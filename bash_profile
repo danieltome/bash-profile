@@ -254,6 +254,9 @@ alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit
 alias apacheLog='tail /var/log/httpd/error_log'         # apacheLog:        Tails HTTP error 
 alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
 alias apacheTest='sudo apachectl -t'                    # apacheTest:       Check Apache Syntax
+alias mysqlStart='sudo /usr/local/mysql/support-files/mysql.server start'       # mysqlStart:       Start Mysql server
+alias mysqlStop='sudo /usr/local/mysql/support-files/mysql.server stop'         # mysqlStop:        Stop Mysql server
+alias mysqlRestart='sudo /usr/local/mysql/support-files/mysql.server restart'   # mysqlRestart:     Restart Mysql server
 alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
 
 alias downloadSite='wget --mirror --convert-links --backup-converted --adjust-extension ' # download a site for offline reading. downloadSite http://somesite.com
