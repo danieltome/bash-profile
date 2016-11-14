@@ -1,10 +1,13 @@
-# bash-profile
-My personal bash profile for Mac OSX
+# bash_profile and fish config
 
-I've forked this initial setup from: https://github.com/fauzanariffin/bash-profile
+My personal bash_profile and fish.config for Mac OSX.
+I've started using fish shell: https://fishshell.com/
+So I'm just keeping the bash profile for history purposes.
 
+I've forked the bash_profile initial setup from: https://github.com/fauzanariffin/bash-profile
+Fish config has been a port from bash to fish.
 
-## This file holds some neat BASH configurations and aliases
+## The bash_profile holds some neat BASH configurations and aliases
 
 It is divided into 8 sections.
 
@@ -43,7 +46,7 @@ Toggling finder's hidden files, cleaning up DS_Store files
 Apache and the usuals.
 
 
-# How to use this?
+# Bash profile: How to use this?
 
 * Just edit the PATHS with what you require.
 * Then copy the bash_profile file in your home directory as .bash_profile
@@ -56,5 +59,15 @@ If you already have a terminal open run this:
 
 ```
 source ~/.bash_profile
+```
+
+# Fish config: How to use this?
+
+* Just edit the fish_user_paths with what you require.
+* Then copy the fish.config file in your home/.config/fish as .bash_profile
+
+```
+cp ~/.config/fish/.fish.config ~/.config/fish/.fish.config_backup
+cp fish.config ~/.config/fish/.fish.config
 ```
 
